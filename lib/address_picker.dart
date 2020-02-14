@@ -11,7 +11,6 @@ class Calculator {
 }
 
 class AddressPicker extends StatefulWidget {
-  final bool noType;
   final Widget Function(String text) buildItem;
   final Widget underline;
   final EdgeInsets insidePadding;
@@ -23,7 +22,6 @@ class AddressPicker extends StatefulWidget {
       this.underline,
       this.insidePadding,
       this.placeHolderTextStyle,
-      this.noType = false,
       @required this.onAddressChanged});
 
   @override
@@ -33,9 +31,9 @@ class AddressPicker extends StatefulWidget {
 class _AddressPickerState extends State<AddressPicker> {
   List<Province> _provinceList = [];
   Province
-      _provinceSelected; // = Province(name_with_type: 'Vui lòng chọn tỉnh/tp', districts: []);
+      _provinceSelected; // = Province(name_with_type: 'Chọn tỉnh/tp', districts: []);
   District
-      _districtSelected; // = District(name_with_type: 'Vui lòng chọn quận/huyện', wards: []);
+      _districtSelected; // = District(name_with_type: 'Chọn quận/huyện', wards: []);
   Wards _wardsSelected;
 
   _buildItem(String text) {
@@ -98,7 +96,7 @@ class _AddressPickerState extends State<AddressPicker> {
                   value: _provinceSelected,
                   items: _provinceList.map((p) {
                     return DropdownMenuItem<Province>(
-                      child: _buildItem(widget.noType ? p.name :p.nameWithType),
+                      child: _buildItem(p.name),
                       value: p,
                     );
                   }).toList(),
@@ -109,7 +107,7 @@ class _AddressPickerState extends State<AddressPicker> {
                       _wardsSelected = null;
                     });
                     widget.onAddressChanged(
-                        LocalAddress(province: widget.noType ? _provinceSelected.name : _provinceSelected.nameWithType));
+                        LocalAddress(province: _provinceSelected.name));
                   })),
           Padding(
               padding:
@@ -139,8 +137,8 @@ class _AddressPickerState extends State<AddressPicker> {
                           _wardsSelected = null;
                         });
                         widget.onAddressChanged(LocalAddress(
-                            province: widget.noType ? _provinceSelected.name : _provinceSelected.nameWithType,
-                            district: widget.noType ? _districtSelected.name : _districtSelected.nameWithType));
+                            province: _provinceSelected.name,
+                            district: _districtSelected.nameWithType));
                       }))),
           Container(
               height: 60.0,
@@ -165,9 +163,9 @@ class _AddressPickerState extends State<AddressPicker> {
                       _wardsSelected = w;
                     });
                     widget.onAddressChanged(LocalAddress(
-                        province: widget.noType ? _provinceSelected.name : _provinceSelected.nameWithType,
-                        district: widget.noType ? _districtSelected.name : _districtSelected.nameWithType,
-                        ward: widget.noType ? _wardsSelected.name : _wardsSelected.nameWithType));
+                        province: _provinceSelected.name,
+                        district: _districtSelected.nameWithType,
+                        ward: _wardsSelected.nameWithType));
                   }))
         ]));
   }
