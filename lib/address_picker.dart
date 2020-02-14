@@ -90,7 +90,7 @@ class _AddressPickerState extends State<AddressPicker> {
               height: 60.0,
               child: DropdownButton<Province>(
                   underline: widget.underline,
-                  hint: Text('Vui lòng chọn tỉnh/tp',
+                  hint: Text('Chọn Tỉnh/ Thành phố',
                       style: TextStyle().merge(
                           widget.placeHolderTextStyle != null
                               ? widget.placeHolderTextStyle
@@ -98,7 +98,7 @@ class _AddressPickerState extends State<AddressPicker> {
                   value: _provinceSelected,
                   items: _provinceList.map((p) {
                     return DropdownMenuItem<Province>(
-                      child: _buildItem(p.nameWithType),
+                      child: _buildItem(widget.noType ? p.name :p.nameWithType),
                       value: p,
                     );
                   }).toList(),
@@ -118,7 +118,7 @@ class _AddressPickerState extends State<AddressPicker> {
                   height: 60.0,
                   width: double.infinity,
                   child: DropdownButton<District>(
-                      hint: Text('Vui lòng chọn quận/huyện',
+                      hint: Text('Chọn Quận/ Huyện',
                           style: TextStyle().merge(
                               widget.placeHolderTextStyle != null
                                   ? widget.placeHolderTextStyle
@@ -146,7 +146,7 @@ class _AddressPickerState extends State<AddressPicker> {
               height: 60.0,
               width: double.infinity,
               child: DropdownButton<Wards>(
-                  hint: Text('Vui lòng chọn phường/xã',
+                  hint: Text('Chọn Phường/ Xã',
                       style: TextStyle().merge(
                           widget.placeHolderTextStyle != null
                               ? widget.placeHolderTextStyle
