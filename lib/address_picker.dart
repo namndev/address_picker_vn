@@ -15,24 +15,29 @@ class AddressPicker extends StatefulWidget {
   final Widget underline;
   final EdgeInsets insidePadding;
   final TextStyle placeHolderTextStyle;
-  final Function(String) onAddressChanged;
+  final Function(LocalAddress) onAddressChanged;
 
-  AddressPicker({this.buildItem, this.underline, this.insidePadding, this.placeHolderTextStyle, @required this.onAddressChanged});
+  AddressPicker(
+      {this.buildItem,
+      this.underline,
+      this.insidePadding,
+      this.placeHolderTextStyle,
+      @required this.onAddressChanged});
 
   @override
   _AddressPickerState createState() => _AddressPickerState();
-  
 }
 
 class _AddressPickerState extends State<AddressPicker> {
   List<Province> _provinceList = [];
-  Province _provinceSelected; // = Province(name_with_type: 'Vui lòng chọn tỉnh/tp', districts: []);
-  District _districtSelected; // = District(name_with_type: 'Vui lòng chọn quận/huyện', wards: []);
+  Province
+      _provinceSelected; // = Province(name_with_type: 'Vui lòng chọn tỉnh/tp', districts: []);
+  District
+      _districtSelected; // = District(name_with_type: 'Vui lòng chọn quận/huyện', wards: []);
   Wards _wardsSelected;
 
   _buildItem(String text) {
     if (widget.buildItem != null) return widget.buildItem(text);
-
     return Text(text);
   }
 
@@ -47,7 +52,8 @@ class _AddressPickerState extends State<AddressPicker> {
   }
 
   Future<List<Province>> _loadViAddressDb() async {
-    String data = await DefaultAssetBundle.of(context).loadString("packages/address_picker/lib/db/vn_db.json");
+    String data = await DefaultAssetBundle.of(context)
+        .loadString("packages/address_picker/lib/db/vn_db.json");
     Map jsonResult = json.decode(data);
 
     List<Province> provinceList = [];
@@ -75,14 +81,18 @@ class _AddressPickerState extends State<AddressPicker> {
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
+            Widget>[
           Container(
               width: double.infinity,
               height: 60.0,
               child: DropdownButton<Province>(
                   underline: widget.underline,
                   hint: Text('Vui lòng chọn tỉnh/tp',
-                      style: TextStyle().merge(widget.placeHolderTextStyle != null ? widget.placeHolderTextStyle : null)),
+                      style: TextStyle().merge(
+                          widget.placeHolderTextStyle != null
+                              ? widget.placeHolderTextStyle
+                              : null)),
                   value: _provinceSelected,
                   items: _provinceList.map((p) {
                     return DropdownMenuItem<Province>(
@@ -96,19 +106,26 @@ class _AddressPickerState extends State<AddressPicker> {
                       _districtSelected = null;
                       _wardsSelected = null;
                     });
-                    widget.onAddressChanged(_provinceSelected.nameWithType);
+                    widget.onAddressChanged(
+                        LocalAddress(province: _provinceSelected.nameWithType));
                   })),
           Padding(
-              padding: widget.insidePadding ?? EdgeInsets.symmetric(vertical: 8.0),
+              padding:
+                  widget.insidePadding ?? EdgeInsets.symmetric(vertical: 8.0),
               child: Container(
                   height: 60.0,
                   width: double.infinity,
                   child: DropdownButton<District>(
                       hint: Text('Vui lòng chọn quận/huyện',
-                          style: TextStyle().merge(widget.placeHolderTextStyle != null ? widget.placeHolderTextStyle : null)),
+                          style: TextStyle().merge(
+                              widget.placeHolderTextStyle != null
+                                  ? widget.placeHolderTextStyle
+                                  : null)),
                       value: _districtSelected,
                       underline: widget.underline,
-                      items: (_provinceSelected ?? Province(districts: [])).districts.map((d) {
+                      items: (_provinceSelected ?? Province(districts: []))
+                          .districts
+                          .map((d) {
                         return DropdownMenuItem<District>(
                           child: _buildItem(d.nameWithType),
                           value: d,
@@ -119,17 +136,23 @@ class _AddressPickerState extends State<AddressPicker> {
                           _districtSelected = d;
                           _wardsSelected = null;
                         });
-                        widget.onAddressChanged(_districtSelected.pathWithType);
+                        widget.onAddressChanged(LocalAddress(
+                            province: _provinceSelected.nameWithType,
+                            district: _districtSelected.nameWithType));
                       }))),
           Container(
               height: 60.0,
               width: double.infinity,
               child: DropdownButton<Wards>(
                   hint: Text('Vui lòng chọn phường/xã',
-                      style: TextStyle().merge(widget.placeHolderTextStyle != null ? widget.placeHolderTextStyle : null)),
+                      style: TextStyle().merge(
+                          widget.placeHolderTextStyle != null
+                              ? widget.placeHolderTextStyle
+                              : null)),
                   value: _wardsSelected,
                   underline: widget.underline,
-                  items: (_districtSelected ?? District(wards: [])).wards.map((w) {
+                  items:
+                      (_districtSelected ?? District(wards: [])).wards.map((w) {
                     return DropdownMenuItem<Wards>(
                       child: _buildItem(w.nameWithType),
                       value: w,
@@ -139,7 +162,10 @@ class _AddressPickerState extends State<AddressPicker> {
                     setState(() {
                       _wardsSelected = w;
                     });
-                    widget.onAddressChanged(_wardsSelected.pathWithType);
+                    widget.onAddressChanged(LocalAddress(
+                        province: _provinceSelected.nameWithType,
+                        district: _districtSelected.nameWithType,
+                        ward: _districtSelected.nameWithType));
                   }))
         ]));
   }

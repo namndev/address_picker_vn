@@ -6,6 +6,23 @@ part of 'local_address.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+LocalAddress _$LocalAddressFromJson(Map<String, dynamic> json) {
+  return LocalAddress(
+    address: json['address'] as String,
+    ward: json['ward'] as String,
+    district: json['district'] as String,
+    province: json['province'] as String,
+  );
+}
+
+Map<String, dynamic> _$LocalAddressToJson(LocalAddress instance) =>
+    <String, dynamic>{
+      'address': instance.address,
+      'ward': instance.ward,
+      'district': instance.district,
+      'province': instance.province,
+    };
+
 Province _$ProvinceFromJson(Map<String, dynamic> json) {
   return Province(
     name: json['name'] as String,
