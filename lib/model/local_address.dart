@@ -24,7 +24,7 @@ class LocalAddress {
 
   @override
   String toString() {
-    return '$address, $ward, $district, $province';
+    return '${address == null ? '' : '$address, '}${ward == null ? '' : '$ward, '}${district == null ? '' : '$district, '}${province == null ? '' : province }';
   }
 }
 
