@@ -11,6 +11,7 @@ class Calculator {
 }
 
 class AddressPicker extends StatefulWidget {
+  final bool noType;
   final Widget Function(String text) buildItem;
   final Widget underline;
   final EdgeInsets insidePadding;
@@ -22,6 +23,7 @@ class AddressPicker extends StatefulWidget {
       this.underline,
       this.insidePadding,
       this.placeHolderTextStyle,
+      this.noType = false,
       @required this.onAddressChanged});
 
   @override
@@ -107,7 +109,7 @@ class _AddressPickerState extends State<AddressPicker> {
                       _wardsSelected = null;
                     });
                     widget.onAddressChanged(
-                        LocalAddress(province: _provinceSelected.nameWithType));
+                        LocalAddress(province: widget.noType ? _provinceSelected.name : _provinceSelected.nameWithType));
                   })),
           Padding(
               padding:
@@ -137,8 +139,8 @@ class _AddressPickerState extends State<AddressPicker> {
                           _wardsSelected = null;
                         });
                         widget.onAddressChanged(LocalAddress(
-                            province: _provinceSelected.nameWithType,
-                            district: _districtSelected.nameWithType));
+                            province: widget.noType ? _provinceSelected.name : _provinceSelected.nameWithType,
+                            district: widget.noType ? _districtSelected.name : _districtSelected.nameWithType));
                       }))),
           Container(
               height: 60.0,
@@ -163,9 +165,9 @@ class _AddressPickerState extends State<AddressPicker> {
                       _wardsSelected = w;
                     });
                     widget.onAddressChanged(LocalAddress(
-                        province: _provinceSelected.nameWithType,
-                        district: _districtSelected.nameWithType,
-                        ward: _districtSelected.nameWithType));
+                        province: widget.noType ? _provinceSelected.name : _provinceSelected.nameWithType,
+                        district: widget.noType ? _districtSelected.name : _districtSelected.nameWithType,
+                        ward: widget.noType ? _wardsSelected.name : _wardsSelected.nameWithType));
                   }))
         ]));
   }
