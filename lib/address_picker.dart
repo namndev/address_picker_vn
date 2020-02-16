@@ -57,6 +57,7 @@ class _AddressPickerState extends State<AddressPicker> {
     Map jsonResult = json.decode(data);
 
     List<Province> provinceList = [];
+    Province hanoi, hcm, cantho, danang;
     jsonResult.forEach((k, item) {
       Province provice = Province.fromJson(item);
       List<District> districtList = [];
@@ -71,9 +72,23 @@ class _AddressPickerState extends State<AddressPicker> {
         districtList.add(district);
       });
       provice.districts = districtList;
-      provinceList.add(provice);
+      if (provice.code == '01')
+        hanoi = provice;
+      else if (provice.code == '79')
+        hcm = provice;
+      else if (provice.code == '92')
+        cantho = provice;
+      else if (provice.code == '48')
+        danang = provice;
+      else
+        provinceList.add(provice);
     });
-
+    provinceList.sort((p1, p2) => p1.name.compareTo(p2.name));
+    // Hanoi, HCM, Can Tho, Da Nang to Top
+    if (hanoi != null) provinceList.insert(0, hanoi);
+    if (hcm != null) provinceList.insert(1, hcm);
+    if (cantho != null) provinceList.insert(2, cantho);
+    if (danang != null) provinceList.insert(3, danang);
     return Future.value(provinceList);
   }
 
