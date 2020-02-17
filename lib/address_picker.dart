@@ -102,6 +102,7 @@ class _AddressPickerState extends State<AddressPicker> {
               width: double.infinity,
               height: 60.0,
               child: DropdownButton<Province>(
+                  isExpanded: true,
                   underline: widget.underline,
                   hint: Text('Chọn Tỉnh/ Thành phố',
                       style: TextStyle().merge(
@@ -137,6 +138,7 @@ class _AddressPickerState extends State<AddressPicker> {
                                   ? widget.placeHolderTextStyle
                                   : null)),
                       value: _districtSelected,
+                      isExpanded: true,
                       underline: widget.underline,
                       items: (_provinceSelected ?? Province(districts: []))
                           .districts
@@ -165,6 +167,7 @@ class _AddressPickerState extends State<AddressPicker> {
                               ? widget.placeHolderTextStyle
                               : null)),
                   value: _wardsSelected,
+                  isExpanded: true,
                   underline: widget.underline,
                   items:
                       (_districtSelected ?? District(wards: [])).wards.map((w) {
