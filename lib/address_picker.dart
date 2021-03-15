@@ -11,11 +11,11 @@ class Calculator {
 }
 
 class AddressPicker extends StatefulWidget {
-  final Widget Function(String text) buildItem;
-  final Widget underline;
-  final EdgeInsets insidePadding;
-  final TextStyle placeHolderTextStyle;
-  final Function(LocalAddress) onAddressChanged;
+  final Widget Function(String? text)? buildItem;
+  final Widget? underline;
+  final EdgeInsets? insidePadding;
+  final TextStyle? placeHolderTextStyle;
+  final Function(LocalAddress)? onAddressChanged;
 
   AddressPicker(
       {this.buildItem,
@@ -30,15 +30,15 @@ class AddressPicker extends StatefulWidget {
 
 class _AddressPickerState extends State<AddressPicker> {
   List<Province> _provinceList = [];
-  Province
+  Province?
       _provinceSelected; // = Province(name_with_type: 'Chọn tỉnh/tp', districts: []);
-  District
+  District?
       _districtSelected; // = District(name_with_type: 'Chọn quận/huyện', wards: []);
-  Wards _wardsSelected;
+  Wards? _wardsSelected;
 
-  _buildItem(String text) {
-    if (widget.buildItem != null) return widget.buildItem(text);
-    return Text(text);
+  _buildItem(String? text) {
+    if (widget.buildItem != null) return widget.buildItem!(text);
+    return Text(text ?? "");
   }
 
   @override
@@ -57,7 +57,7 @@ class _AddressPickerState extends State<AddressPicker> {
     Map jsonResult = json.decode(data);
 
     List<Province> provinceList = [];
-    Province hanoi, hcm, cantho, danang;
+    Province? hanoi, hcm, cantho, danang;
     jsonResult.forEach((k, item) {
       Province provice = Province.fromJson(item);
       List<District> districtList = [];
@@ -83,12 +83,12 @@ class _AddressPickerState extends State<AddressPicker> {
       else
         provinceList.add(provice);
     });
-    provinceList.sort((p1, p2) => p1.name.compareTo(p2.name));
+    provinceList.sort((p1, p2) => p1.name!.compareTo(p2.name!));
     // Hanoi, HCM, Can Tho, Da Nang to Top
-    if (hanoi != null) provinceList.insert(0, hanoi);
-    if (hcm != null) provinceList.insert(1, hcm);
-    if (cantho != null) provinceList.insert(2, cantho);
-    if (danang != null) provinceList.insert(3, danang);
+    if (hanoi != null) provinceList.insert(0, hanoi!);
+    if (hcm != null) provinceList.insert(1, hcm!);
+    if (cantho != null) provinceList.insert(2, cantho!);
+    if (danang != null) provinceList.insert(3, danang!);
     return Future.value(provinceList);
   }
 
@@ -122,12 +122,12 @@ class _AddressPickerState extends State<AddressPicker> {
                       _districtSelected = null;
                       _wardsSelected = null;
                     });
-                    widget.onAddressChanged(
-                        LocalAddress(province: _provinceSelected.name));
+                    widget.onAddressChanged!(
+                        LocalAddress(province: _provinceSelected?.name));
                   })),
           Padding(
               padding:
-                  widget.insidePadding ?? EdgeInsets.symmetric(vertical: 8.0),
+                  widget.insidePadding ?? EdgeInsets.all(3),
               child: Container(
                   height: 60.0,
                   width: double.infinity,
@@ -153,9 +153,9 @@ class _AddressPickerState extends State<AddressPicker> {
                           _districtSelected = d;
                           _wardsSelected = null;
                         });
-                        widget.onAddressChanged(LocalAddress(
-                            province: _provinceSelected.name,
-                            district: _districtSelected.nameWithType));
+                        widget.onAddressChanged!(LocalAddress(
+                            province: _provinceSelected!.name,
+                            district: _districtSelected!.nameWithType));
                       }))),
           Container(
               height: 60.0,
@@ -180,10 +180,10 @@ class _AddressPickerState extends State<AddressPicker> {
                     setState(() {
                       _wardsSelected = w;
                     });
-                    widget.onAddressChanged(LocalAddress(
-                        province: _provinceSelected.name,
-                        district: _districtSelected.nameWithType,
-                        ward: _wardsSelected.nameWithType));
+                    widget.onAddressChanged!(LocalAddress(
+                        province: _provinceSelected!.name,
+                        district: _districtSelected!.nameWithType,
+                        ward: _wardsSelected!.nameWithType));
                   }))
         ]));
   }

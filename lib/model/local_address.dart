@@ -7,10 +7,10 @@ part 'local_address.g.dart';
 
 @JsonSerializable()
 class LocalAddress {
-  final String address;
-  final String ward;
-  final String district;
-  final String province;
+  final String? address;
+  final String? ward;
+  final String? district;
+  final String? province;
 
   LocalAddress({this.address, this.ward, this.district, this.province});
 
@@ -18,7 +18,7 @@ class LocalAddress {
     return _$LocalAddressFromJson(json);
   }
 
-  LocalAddress copyWith({String address}) => LocalAddress(province: this.province, district: this.district, ward: this.ward, address: address);
+  LocalAddress copyWith({String? address}) => LocalAddress(province: this.province, district: this.district, ward: this.ward, address: address);
 
   Map<String, dynamic> toJson() => _$LocalAddressToJson(this);
 
@@ -30,12 +30,12 @@ class LocalAddress {
 
 @JsonSerializable()
 class Province {
-  final String name;
-  final String slug;
+  final String? name;
+  final String? slug;
   @JsonKey(name: 'name_with_type')
-  final String nameWithType;
-  final String code;
-  final String type;
+  final String? nameWithType;
+  final String? code;
+  final String? type;
 
   @JsonKey(ignore: true)
   List<District> districts;
@@ -46,7 +46,7 @@ class Province {
       this.nameWithType,
       this.code,
       this.type,
-      this.districts});
+      List<District>? districts}): this.districts = districts ?? <District>[];
 
   factory Province.fromJson(Map<String, dynamic> json) {
     final item = _$ProvinceFromJson(json);
@@ -59,14 +59,14 @@ class Province {
 class District {
   //Wards
 
-  final String name;
-  final String slug;
+  final String? name;
+  final String? slug;
   @JsonKey(name: 'path_with_type')
-  final String pathWithType;
+  final String? pathWithType;
   @JsonKey(name: 'name_with_type')
-  final String nameWithType;
-  final String code;
-  final String type;
+  final String? nameWithType;
+  final String? code;
+  final String? type;
 
   @JsonKey(ignore: true)
   List<Wards> wards;
@@ -78,7 +78,7 @@ class District {
       this.nameWithType,
       this.code,
       this.type,
-      this.wards});
+      List<Wards>? wards}) : this.wards = wards ?? <Wards>[];
 
   factory District.fromJson(Map<String, dynamic> json) {
     final item = _$DistrictFromJson(json);
@@ -91,14 +91,14 @@ class District {
 class Wards {
   //Wards
 
-  final String name;
-  final String slug;
+  final String? name;
+  final String? slug;
   @JsonKey(name: 'path_with_type')
-  final String pathWithType;
+  final String? pathWithType;
   @JsonKey(name: 'name_with_type')
-  final String nameWithType;
-  final String code;
-  final String type;
+  final String? nameWithType;
+  final String? code;
+  final String? type;
 
   Wards(
       {this.name,
