@@ -1,7 +1,8 @@
 name: address_picker_vn
-description: A new Flutter package.
-version: 0.3.0
-homepage: https://namndev.com
+description: A flutter plugin for pick address. (Support VietNam Only).
+version: 0.3.2
+author: namndev <namnd.bka@gmail.com>
+homepage: https://github.com/namndev/address_picker_vn
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

@@ -1,3 +1,3 @@
 # Address picker (Vietnam only)
-## v 0.3.0
--   Init package
+## v 0.3.2
+-   Update readme

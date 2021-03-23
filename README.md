@@ -1,4 +1,4 @@
-# address_picker
+# address_picker_vn
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/paypalme/namndev)
 
@@ -9,9 +9,7 @@ How to add lib to your project:
 ```
 dependencies:
   ....
-  address_picker:
-    git:
-      url: git://github.com/namndev/address_picker.git
+  address_picker_vn: ^0.3.2
 ```
 
 
@@ -35,6 +33,6 @@ Container(
 
 Screenshot for sample app:
 
-![alt text](https://github.com/namndev/address_picker/blob/master/screenshot/screenshot.PNG)
+![alt text](https://github.com/namndev/address_picker_vn/blob/master/screenshot/screenshot.PNG)
 
 [![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/paypalme/namndev)
