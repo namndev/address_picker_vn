@@ -1,8 +1,7 @@
-name: address_picker
+name: address_picker_vn
 description: A new Flutter package.
-version: 0.0.1
-author:
-homepage:
+version: 0.3.0
+homepage: https://namndev.com
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
